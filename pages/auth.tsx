@@ -1,6 +1,7 @@
 import Input from "@/components/input";
 import { useCallback, useState } from "react";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 
 const Auth = () => {
     const [email,setEmail] = useState('');
@@ -25,6 +26,19 @@ const Auth = () => {
         }
     },[email, name, pass])
 
+    const login = useCallback(async () => {
+        try {
+            await signIn('credentials', {
+                email,
+                pass,
+                redirect: false,
+                callback: '/'
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    },[email,pass])
+
     return (
         <div className="relative h-full w-full bg-[url('/images/hero.png')] bg-no-repeat bg-center bg-fixed bg-cover">
             <div className="bg-black w-full h-full lg:bg-opacity-50">
@@ -43,7 +57,7 @@ const Auth = () => {
                             <Input label="Email" onChange={(ev: any) => setEmail(ev.target.value)} id="email" type="text" value={email}/>
                             <Input label="Password" onChange={(ev: any) => setPass(ev.target.value)} id="pass" type="password" value={pass}/>
                         </div>
-                        <button onClick={register} className="bg-rose-700 py-3 text-white rounded-md w-full mt-10 hover:bg-rose-800 transition">
+                        <button onClick={variant == 'login'? login : register} className="bg-rose-700 py-3 text-white rounded-md w-full mt-10 hover:bg-rose-800 transition">
                             {variant == 'login' ? 'login' : 'Create an account'}
                         </button>
                         <p className="text-neutral-500 mt-12">
