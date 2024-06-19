@@ -1,5 +1,6 @@
 import Input from "@/components/input";
 import { useCallback, useState } from "react";
+import axios from "axios";
 
 const Auth = () => {
     const [email,setEmail] = useState('');
@@ -11,6 +12,18 @@ const Auth = () => {
     const toggleVariant = useCallback(() => {
         setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login')
     }, [])
+
+    const register = useCallback(async () => {
+        try {
+            await axios.post('/api/register',{
+                email,
+                name,
+                pass
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    },[email, name, pass])
 
     return (
         <div className="relative h-full w-full bg-[url('/images/hero.png')] bg-no-repeat bg-center bg-fixed bg-cover">
@@ -25,12 +38,12 @@ const Auth = () => {
                         </h2>
                         <div className="flex flex-col gap-4">
                             {variant == 'register' && (
-                                <Input label="Username" onChange={(ev: any) => setEmail(ev.target.value)} id="name" type="text" value={name}/>
+                                <Input label="Username" onChange={(ev: any) => setName(ev.target.value)} id="name" type="text" value={name}/>
                             )}
-                            <Input label="Email" onChange={(ev: any) => setName(ev.target.value)} id="email" type="text" value={email}/>
+                            <Input label="Email" onChange={(ev: any) => setEmail(ev.target.value)} id="email" type="text" value={email}/>
                             <Input label="Password" onChange={(ev: any) => setPass(ev.target.value)} id="pass" type="password" value={pass}/>
                         </div>
-                        <button className="bg-rose-700 py-3 text-white rounded-md w-full mt-10 hover:bg-rose-800 transition">
+                        <button onClick={register} className="bg-rose-700 py-3 text-white rounded-md w-full mt-10 hover:bg-rose-800 transition">
                             {variant == 'login' ? 'login' : 'Create an account'}
                         </button>
                         <p className="text-neutral-500 mt-12">
