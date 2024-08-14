@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-cyan-950 h-full overflow-x-hidden
+  @apply bg-pink-950 h-full overflow-x-hidden
 }
 
 #__next {
