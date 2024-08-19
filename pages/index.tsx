@@ -4,6 +4,7 @@ import { getSession, signOut } from "next-auth/react";
 import { NextPageContext } from "next";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import Navbar from "@/components/Navbar";
+import Billboard from "@/components/Billboard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,38 +32,8 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
-      <div className="h-96"></div>
+      <Billboard />
+     
     </>
   )
 }
