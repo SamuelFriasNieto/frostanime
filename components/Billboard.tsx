@@ -5,9 +5,10 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 const Billboard = () => {
 
     const {data} = useBillboard();
+    console.log(data)
     return (
         <div className="relative h-[56.25vw]">
-            <video className="w-full h-[56.25vw] object-cover brightness-[60%]" autoPlay muted loop poster={data?.thumbnail} src={data?.videoUrl}></video>
+            <iframe className="pointer-events-none w-full h-[56.25vw] object-cover brightness-[60%]" src={data?.videoUrl+"?autoplay=1&mute=1&controls=0&loop=1"}  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen  ></iframe>
             <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
                 <p className="text-white text-1xl md:text-5xl h-full w-[60%] lg:text-6xl font-bold drop-shadow-2xl">{data?.title}</p>
                 <p className="text-white text-[8px] md:text-lg mt-3 md-mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">{data?.description}</p>
