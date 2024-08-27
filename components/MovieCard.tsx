@@ -4,11 +4,13 @@ import { useState, useRef } from "react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { FaDeaf } from "react-icons/fa";
 import FavoroteButton from "./favoriteButton";
+import { useRouter } from "next/router";
 
 interface MovieCardProps {
     data: Record<string, any>;
 }
 const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
+    const router = useRouter();
     const [showVideo, setShowVideo] = useState(false);
     const [showFadeIn, setFadeIn] = useState(false);
     const isHoveredRef = useRef(false);
@@ -51,12 +53,12 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
 
             <div className="opacity-0 absolute top-0 transition duration-200 z-10 invisible sm:visible delay-300 w-full scale-0 group-hover:scale-110 group-hover:-translate-y-[6vw] group-hover:translate-x-[2vw] group-hover:opacity-100">
                 <img
-                    className={`border-b-4 border-pink-600 cursor-pointer object-cover transition duration-300 shadow-xl rounded-t-md w-full h-[12vw] absolute ${showFadeIn ? 'opacity-0' : 'opacity-100'}`}
+                    className={`border-b-4 border-pink-600 cursor-pointer object-cover transition duration-500 shadow-xl rounded-t-md w-full h-[12vw] absolute ${showFadeIn ? 'opacity-0' : 'opacity-100'}`}
                     src={data.thumbnail}
                     alt=""
                 />
                 {showVideo ? (
-                    <video autoPlay loop muted src={data.videoUrl} className={`border-b-4 border-pink-600 cursor-pointer object-cover transition duration-300 shadow-xl rounded-t-md w-full h-[12vw] ${showFadeIn ? 'opacity-100' : 'opacity-0'}`}></video>
+                    <iframe  src={data?.videoUrl+"?autoplay=1&mute=1&controls=0&loop=1"} className={`border-b-4 border-pink-600 cursor-pointer object-cover transition duration-300 shadow-xl rounded-t-md w-full h-[12vw] ${showFadeIn ? 'opacity-100' : 'opacity-0'}`}></iframe>
                 ) : (
                     <img
                         className="border-b-4 border-pink-600 cursor-pointer object-cover transition duration-300 shadow-xl rounded-t-md w-full h-[12vw]"
@@ -67,7 +69,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
 
                 <div className="z-10 bg-black p-2 lg:p-4 absolute w-full transition shadow-md rounded-b-md">
                     <div className="flex flex-row items-center gap-3">
-                        <div className="flex cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full justify-center transition items-center hover:bg-pink-600" onClick={() => { }}>
+                        <div  className="flex cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full justify-center transition items-center hover:bg-pink-600" onClick={() => router.push(`/watch/${data.id}`)}>
                             <BsFillPlayFill size={30} />
                         </div>
                         <FavoroteButton movieId={data.id}/>
