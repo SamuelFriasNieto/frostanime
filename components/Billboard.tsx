@@ -1,12 +1,16 @@
 import useBillboard from "@/hooks/useBillboard";
-import React from "react";
+import React, { useCallback } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import PlayButton from "./PlayButton";
+import useInfoModal from "@/hooks/useInfoModal";
 
 const Billboard = () => {
 
     const {data} = useBillboard();
-    console.log(data)
+    const {openModal} = useInfoModal();
+    const handleOpenModal = useCallback(() => {
+        openModal(data?.id);
+    },[openModal,data?.id])
     return (
         <div className="relative h-[56.25vw]">
             <iframe className="pointer-events-none w-full h-[56.25vw] object-cover brightness-[60%]" src={data?.videoUrl+"?autoplay=1&mute=1&controls=0&loop=1"}  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen  ></iframe>
@@ -15,7 +19,7 @@ const Billboard = () => {
                 <p className="text-white text-[8px] md:text-lg mt-3 md-mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">{data?.description}</p>
                 <div className="flex flex-row items.center mt-3 md:mt-4 gap-4">
                     <PlayButton movieId={data?.id} />
-                    <button className="bg-pink-600 text-white bg-opacity-30 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-pink-600 transition shadow-xl">
+                    <button onClick={handleOpenModal} className="bg-pink-600 text-white bg-opacity-30 rounded-md py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-pink-600 transition shadow-xl">
                     <AiOutlineInfoCircle className="mr-1" />
                         More Info
                     </button>
